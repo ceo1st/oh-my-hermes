@@ -36,6 +36,7 @@ check "~/.hermes/workflows/"  "$WORKFLOWS_DIR"
 
 echo ""
 echo "Skills:"
+check "create-skill"               "$SKILLS_DIR/create-skill.md"
 check "clarify-requirements"       "$SKILLS_DIR/clarify-requirements.md"
 check "product-brief"              "$SKILLS_DIR/product-brief.md"
 check "design-handoff"             "$SKILLS_DIR/design-handoff.md"

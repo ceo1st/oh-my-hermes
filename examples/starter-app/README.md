@@ -31,4 +31,4 @@ A minimal Next.js + Supabase + Vercel starter that demonstrates the oh-my-hermes
 
 ## Docs
 
-Full documentation at the [oh-my-hermes repo](https://github.com/Salomondiei08/oh-my-hermes).
+Full documentation at the [oh-my-hermes repo](https://github.com/salomondiei08/oh-my-hermes).

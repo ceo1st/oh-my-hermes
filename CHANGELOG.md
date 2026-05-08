@@ -5,6 +5,7 @@
 ### Added
 
 **Skills**
+- `create-skill` — create new skills in the correct format (meta-skill)
 - `clarify-requirements` — structured requirement clarification, stores answers to Hermes memory
 - `product-brief` — generates product brief from clarified requirements, writes PRODUCT_BRIEF.md
 - `design-handoff` — converts Claude Design output to an implementation spec

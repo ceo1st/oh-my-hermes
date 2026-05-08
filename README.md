@@ -1,25 +1,58 @@
 # Oh My Hermes
 
-**An opinionated workflow layer for building, shipping, and operating apps with Hermes Agent.**
+[![Version](https://img.shields.io/badge/version-1.0.0-4ade80?style=flat-square)](https://github.com/salomondiei08/oh-my-hermes/releases)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
+[![Hermes](https://img.shields.io/badge/Hermes-v0.9%2B-orange?style=flat-square)](https://hermes-agent.nousresearch.com)
+[![Skills](https://img.shields.io/badge/skills-13-brightgreen?style=flat-square)](#skills-included)
+[![Stack](https://img.shields.io/badge/stack-Markdown%20%2B%20Bash-zinc?style=flat-square)](#)
+[![Deploy](https://img.shields.io/badge/deploy-Vercel-black?style=flat-square)](https://vercel.com)
+[![DB](https://img.shields.io/badge/db-Supabase-3ecf8e?style=flat-square)](https://supabase.com)
 
-Like Oh My Zsh is to Zsh — not a replacement, an extension. Oh My Hermes gives Hermes the rails it needs to take you from raw idea to deployed app to monitored production system, without losing your mind in the middle.
+**An opinionated workflow layer for building, shipping, and operating apps — delivered directly to Hermes.**
+
+Like Oh My Zsh is to Zsh. You install it once, and Hermes becomes genuinely useful for real software projects. Not a chatbot wrapper. Not a prompt pack. A set of curated skills that Hermes loads and runs autonomously — on your VPS, on your laptop, wherever Hermes lives.
+
+---
+
+## The core idea
+
+Hermes is the operator. It talks to you. It remembers. It deploys. It monitors. It notifies.
+
+You describe what you want in plain language — on Telegram, Slack, Discord, your terminal, wherever you have Hermes configured. Hermes loads the right skill and runs the workflow. Claude Code and Codex are optional power tools Hermes can invoke when a task needs deep file editing — but Hermes handles the orchestration, the ops, the memory, and the lifecycle on its own.
+
+```
+YOU  ──  Telegram / Slack / Discord / terminal
+          │
+          ▼
+       HERMES  (VPS or local, running 24/7)
+          │  persistent memory across sessions
+          │  skill-based workflow execution
+          │  cron for recurring ops tasks
+          │
+          ├──▶  deploys to Vercel
+          ├──▶  runs migrations on Supabase
+          ├──▶  checks /api/health
+          ├──▶  sends Slack notifications
+          ├──▶  invokes Claude Code (optional, for deep coding)
+          └──▶  invokes Codex (optional, for quick fixes)
+```
+
+**Hermes does not need Claude Code or Codex to be useful.** Those engines are optional. Hermes itself has a terminal backend and can write, edit, and run code directly. Oh My Hermes's skills are designed to work with Hermes alone — and to chain into Claude Code or Codex when the task benefits from it.
 
 ---
 
 ## What problem does this solve?
 
-Hermes Agent is powerful: persistent memory, autonomous skill generation, 19+ messaging platforms, cron scheduling, flexible deployment. But out of the box, it doesn't tell you *how* to use all of that to ship an app. There are no defaults for Vercel, no conventions for Supabase, no curated skills for the idea→deploy lifecycle, no AGENTS.md template for real projects.
+Hermes Agent has persistent memory, autonomous skill generation, 19+ messaging platforms, cron scheduling, and flexible deployment backends. But out of the box, it gives you no defaults for Vercel, no conventions for Supabase, no curated skills for the idea→deploy lifecycle, and no AGENTS.md template for real projects.
 
-Oh My Hermes fills that gap.
+Oh My Hermes fills that gap with:
 
-It is a curated collection of:
-
-- **Skills** — 12 tested workflow skills covering the full app lifecycle
-- **Conventions** — AGENTS.md templates and project structure standards that Hermes and other coding agents understand
-- **Engine routing** — a clear framework for when to use Hermes, Claude Code, Codex, or Claude Design
+- **13 skills** — tested workflow skills covering the full app lifecycle
+- **Hermes-native framing** — designed for Hermes as the primary operator, not as a routing layer requiring human intervention
+- **VPS-ready** — works with Hermes running on a $5/month server or your local machine
+- **Conventions** — AGENTS.md templates and project structure standards
 - **Deployment patterns** — opinionated defaults for Vercel + Supabase + monitoring
-- **Templates** — health endpoint starters, `.env` examples, project bootstrap scripts
-- **Documentation** — a real architecture guide, not just a README
+- **Templates** — health endpoints, `.env` examples, bootstrap scripts
 
 ---
 
@@ -27,34 +60,28 @@ It is a curated collection of:
 
 ```
 YOU
-  └─ describe an idea
+  └─ "start a new app" (via Telegram, Slack, terminal — wherever Hermes is)
 
-HERMES (operator + memory + orchestrator)
-  ├─ clarifies requirements
-  ├─ generates a product brief
-  ├─ remembers project context across sessions
-  ├─ routes work to the right engine
-  ├─ runs deployment and health checks
-  ├─ sends notifications
-  └─ monitors production on a schedule
+HERMES (running on VPS or local, 24/7)
+  ├─ clarifies requirements (asks 7 questions, saves to memory)
+  ├─ generates product brief (writes PRODUCT_BRIEF.md)
+  ├─ runs design-handoff (converts your design notes to spec)
+  ├─ implements (via terminal backend, or routes to Claude Code/Codex)
+  ├─ deploys to Vercel
+  ├─ runs Supabase migrations
+  ├─ sends Slack notification with URL
+  ├─ checks /api/health
+  └─ sets up monitoring (Sentry + Uptime Kuma)
 
-CLAUDE DESIGN (design surface — human step)
-  └─ UI/UX exploration, wireframes, design handoff spec
+CLAUDE DESIGN (optional human step — no API)
+  └─ UI/UX exploration → export notes → give to Hermes
 
-CLAUDE CODE (coding engine)
-  └─ complex multi-file changes, new features, architecture, refactors
+CLAUDE CODE (optional, for complex multi-file coding)
+  └─ Hermes invokes when task needs deep file editing
 
-CODEX (coding engine)
-  └─ quick targeted fixes, single-file changes, exploration
-
-VERCEL (deployment)
-  └─ automatic deploys on git push, preview URLs, production
-
-SUPABASE (backend)
-  └─ PostgreSQL, auth, storage, RLS policies, migrations
+CODEX (optional, for quick targeted fixes)
+  └─ Hermes invokes when task is a focused single-file change
 ```
-
-Hermes is the operator that lives between all of these. It remembers. It schedules. It routes. It notifies. It never forgets context between sessions.
 
 ---
 
@@ -62,22 +89,19 @@ Hermes is the operator that lives between all of these. It remembers. It schedul
 
 ```
 IDEA
-  ↓  clarify-requirements    ← Hermes asks clarifying questions, stores answers
-  ↓  product-brief           ← Hermes generates a brief and saves it to memory
-  ↓  design-with-claude      ← You open Claude Design (human step), do UI/UX work
-  ↓  design-handoff          ← Convert design output into an implementation spec
-  ↓  choose-engine           ← Hermes routes the task: Claude Code or Codex
-  ↓  implement               ← Coding engine executes against the spec
-  ↓  deploy-to-vercel        ← Hermes deploys to Vercel, captures preview URL
-  ↓  connect-supabase        ← Hermes wires up database, runs migrations
-  ↓  send-notification       ← Hermes notifies you via Slack or email
-  ↓  setup-monitoring        ← Hermes configures Uptime Kuma + Sentry
-  ↓  post-deploy-followup    ← Hermes verifies health, logs deployment to memory
+  ↓  clarify-requirements    ← Hermes asks 7 questions, saves to memory
+  ↓  product-brief           ← Hermes writes the brief, saves to memory
+  ↓  [human] Claude Design   ← You do UI/UX (optional, no API)
+  ↓  design-handoff          ← Hermes converts design to implementation spec
+  ↓  choose-engine           ← Hermes decides: self / Claude Code / Codex
+  ↓  implement               ← Hermes or coding engine executes spec
+  ↓  deploy-to-vercel        ← Hermes deploys, captures URL
+  ↓  connect-supabase        ← Hermes wires DB, runs migrations
+  ↓  send-notification       ← Hermes notifies via Slack / messaging platform
+  ↓  setup-monitoring        ← Sentry + Uptime Kuma
+  ↓  post-deploy-followup    ← Hermes verifies health, logs deployment
   ↓
-RUNNING APP
-  ↓  cron health checks      ← Hermes watches your app on a schedule (V2)
-  ↓  incident response       ← Hermes alerts on failure (V2)
-  ↓  iterate                 ← Loop back to implement with full project memory
+RUNNING APP — Hermes watches it
 ```
 
 ---
@@ -86,125 +110,108 @@ RUNNING APP
 
 ### For humans
 
-**Requirements:**
-- [Hermes Agent](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart) v0.9+ installed
-- Hermes skills directory at `~/.hermes/skills/`
+**Requires:** [Hermes Agent](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart) v0.9+, running locally or on a VPS.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yourusername/oh-my-hermes/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/salomondiei08/oh-my-hermes/main/install.sh | bash
 ```
 
-The installer copies all skills to `~/.hermes/skills/`, copies workflow files to `~/.hermes/workflows/`, confirms what was installed, and prints next steps.
+Installs 13 skills and 3 workflows to `~/.hermes/skills/` and `~/.hermes/workflows/`.
 
-### For new projects
-
-Run the bootstrap script inside your project directory:
+### Bootstrap a new project
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/yourusername/oh-my-hermes/main/scripts/bootstrap.sh | bash
-```
-
-This creates:
-- `AGENTS.md` — pre-filled with conventions for your project
-- `.env.example` — with all expected variables documented
-- `src/app/api/health/route.ts` — a health endpoint (Next.js App Router)
-
-### For LLM coding agents
-
-If you are an AI agent setting up Oh My Hermes in a project:
-
-```bash
-git clone https://github.com/yourusername/oh-my-hermes
-cd oh-my-hermes
-bash install.sh
-```
-
-Then bootstrap the target project:
-
-```bash
-cd /path/to/your/project
+cd /your/project
 bash /path/to/oh-my-hermes/scripts/bootstrap.sh
 ```
 
-Verify the install:
+Creates `AGENTS.md`, `.env.example`, and `src/app/api/health/route.ts`.
+
+### Verify
 
 ```bash
 bash /path/to/oh-my-hermes/scripts/verify.sh
 ```
 
----
+### For Hermes (hand it directly)
 
-## Engine routing
+Once Oh My Hermes is installed, tell Hermes in plain language:
 
-The decision is not arbitrary. Here is the framework:
+```
+start a new app
+```
+```
+deploy this project to Vercel
+```
+```
+set up monitoring for https://myapp.vercel.app
+```
+```
+run the idea-to-deploy workflow
+```
 
-| Situation | Use |
-|---|---|
-| UI/UX decision before any code exists | Claude Design (human-in-the-loop) |
-| Complex multi-file change, new feature, architecture refactor | Claude Code |
-| Quick fix, single-file change, prototype, exploration | Codex |
-| Deploy, monitor, notify, schedule, remember context across sessions | Hermes directly |
-| Not sure what to do next | Ask Hermes — it orchestrates |
+Hermes loads the matching skill and runs it. You do not need to manually invoke anything else.
 
-Run the `choose-engine` skill in Hermes to get a routing recommendation for your specific task.
+### For LLM agents
+
+```bash
+git clone https://github.com/salomondiei08/oh-my-hermes /tmp/oh-my-hermes
+bash /tmp/oh-my-hermes/install.sh
+bash /tmp/oh-my-hermes/scripts/verify.sh
+cd /path/to/target/project
+bash /tmp/oh-my-hermes/scripts/bootstrap.sh
+```
 
 ---
 
 ## Skills included
 
-| Skill | What it does |
+| Skill | What Hermes does |
 |---|---|
-| `clarify-requirements` | Asks structured questions, stores answers in Hermes memory |
-| `product-brief` | Generates a product brief from clarified requirements |
-| `design-handoff` | Converts Claude Design output into an implementation spec |
-| `choose-engine` | Routes a task to Claude Code, Codex, or Hermes |
-| `implement-with-claude-code` | Scaffolds a Claude Code session for a task |
-| `implement-with-codex` | Scaffolds a Codex session for a task |
-| `deploy-to-vercel` | Deploys project to Vercel with pre-deploy checks |
-| `connect-supabase` | Wires Supabase into a project, runs migrations |
-| `setup-monitoring` | Configures Uptime Kuma + Sentry for a deployed app |
-| `health-check` | Checks a running app's `/health` endpoint |
-| `send-notification` | Sends a Slack or email notification |
-| `post-deploy-followup` | Verifies deployment, logs to memory, checks health |
+| `clarify-requirements` | Asks 7 structured questions, saves answers to memory |
+| `product-brief` | Generates brief from requirements, writes PRODUCT_BRIEF.md |
+| `create-skill` | Creates a new skill in the correct format (meta-skill) |
+| `design-handoff` | Converts design notes to an implementation spec |
+| `choose-engine` | Decides: Hermes terminal / Claude Code / Codex |
+| `implement-with-claude-code` | Scaffolds Claude Code session with full context |
+| `implement-with-codex` | Scaffolds Codex invocation with full context |
+| `deploy-to-vercel` | Pre-deploy checks → deploy → capture URL |
+| `connect-supabase` | Links Supabase, pushes migrations, sets Vercel env vars |
+| `setup-monitoring` | Configures Sentry + documents Uptime Kuma setup |
+| `health-check` | Calls `/api/health`, validates response, reports status |
+| `send-notification` | Sends Slack webhook with deployment or status info |
+| `post-deploy-followup` | Health check + deployment log + notification + summary |
 
 ---
 
 ## Workflow examples
 
-**Start a new app from scratch:**
-
+**Start a new app (via Telegram, Slack, or any Hermes platform):**
 ```
-tell hermes: start a new project
-→ Hermes loads clarify-requirements skill
-→ Hermes asks 5–7 clarifying questions, you answer
-→ Hermes saves answers to memory, generates product brief
-→ You open Claude Design for UI/UX work (human step)
-→ You run design-handoff skill: design → implementation spec
-→ Hermes routes to Claude Code (complex multi-file new app)
-→ Claude Code implements the spec
-→ Hermes runs deploy-to-vercel
-→ Hermes sends Slack notification with preview URL
+you: start a new app
+hermes: What problem does this solve? Who experiences it?
+you: [answer]
+hermes: [6 more questions…]
+hermes: Requirements saved. Generating product brief…
+hermes: Brief written to PRODUCT_BRIEF.md. Ready to implement or do design first?
 ```
 
-**Fix a bug quickly:**
-
+**Deploy after implementing:**
 ```
-tell hermes: fix the auth redirect bug in src/middleware.ts
-→ Hermes loads context from memory (auth decisions, architecture)
-→ Hermes routes to Codex (single-file targeted fix)
-→ Codex fixes the bug, commits
-→ Hermes deploys and verifies health endpoint
+you: deploy this to Vercel
+hermes: Running pre-deploy checklist…
+hermes: [checks git status, .gitignore, /api/health]
+hermes: Deploying… done. URL: https://myapp.vercel.app
+hermes: Health check: PASS (200ms)
+hermes: Notification sent to Slack.
 ```
 
-**Add a major feature:**
-
+**Quick fix:**
 ```
-tell hermes: add subscription billing
-→ Hermes loads product memory (architecture, database schema)
-→ Hermes routes to Claude Code (complex multi-file, new subsystem)
-→ Claude Code implements with Stripe + Supabase
-→ Hermes runs connect-supabase to apply new migrations
-→ Hermes deploys, verifies health, notifies with URL
+you: fix the auth redirect bug in src/middleware.ts
+hermes: Loading context from memory… routing to Codex (single-file fix)
+hermes: codex "In src/middleware.ts, fix auth redirect…"
+hermes: Done. Running typecheck… pass. Deploying.
 ```
 
 ---
@@ -216,23 +223,48 @@ tell hermes: add subscription billing
 | Frontend / full-stack | Vercel | Railway, Render |
 | Database | Supabase PostgreSQL | PlanetScale, Neon |
 | Auth | Supabase Auth | Clerk, Auth.js |
-| Storage | Supabase Storage | Cloudflare R2 |
 | Error tracking | Sentry | LogRocket |
 | Uptime monitoring | Uptime Kuma (self-hosted) | Better Uptime |
 | Notifications | Slack webhook | Email (SendGrid) |
 
-All defaults are pluggable. Each skill documents where to change the default.
+All defaults are pluggable. Each skill documents how to substitute.
+
+---
+
+## Running Hermes on a VPS
+
+The intended setup for production use:
+
+```bash
+# On a $5/month VPS (Ubuntu 22.04+)
+curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
+hermes model        # choose your provider
+hermes tools        # enable Telegram/Slack/Discord gateway
+hermes              # start Hermes
+
+# Then install Oh My Hermes
+curl -fsSL https://raw.githubusercontent.com/salomondiei08/oh-my-hermes/main/install.sh | bash
+```
+
+After this, you talk to Hermes via your configured messaging platform (Telegram, Slack, Discord, etc.) and it runs skills on the VPS — deploying, monitoring, notifying — without you needing to touch a terminal.
+
+For Docker deployment:
+```bash
+docker run -d --restart=always \
+  -v hermes-data:/root/.hermes \
+  nousresearch/hermes-agent
+```
 
 ---
 
 ## Architecture
 
-See [docs/architecture.md](docs/architecture.md) for the full architecture guide.
+See [docs/architecture.md](docs/architecture.md).
 
 ```
 oh-my-hermes/
-├── skills/          ← Load into Hermes (~/.hermes/skills/)
-├── workflows/       ← Composite multi-skill workflows
+├── skills/          ← Load into ~/.hermes/skills/
+├── workflows/       ← Load into ~/.hermes/workflows/
 ├── templates/       ← AGENTS.md template, .env example, health endpoints
 ├── examples/        ← Starter app (Next.js + Supabase + Vercel)
 ├── scripts/         ← bootstrap.sh, verify.sh
@@ -241,21 +273,23 @@ oh-my-hermes/
 
 ---
 
-## Improvements to Hermes
+## Proposed improvements to Hermes
 
-This project tracks proposed improvements to Hermes itself. See [docs/improvements-to-hermes.md](docs/improvements-to-hermes.md) for a documented list of concrete proposals, classified by whether they belong in Hermes core, Hermes docs, or this extension layer.
+See [docs/improvements-to-hermes.md](docs/improvements-to-hermes.md) — concrete proposals for what should be added to Hermes core, documented in Hermes docs, or deferred.
 
 ---
 
 ## Requirements
 
-- Hermes Agent v0.9+ (tested on v0.13)
-- Writable `~/.hermes/skills/` directory
-- For deployment skills: Vercel account + Vercel CLI
-- For database skills: Supabase account + Supabase CLI
-- For notification skills: Slack webhook URL
+| Requirement | Version |
+|---|---|
+| Hermes Agent | v0.9+ (tested on v0.13) |
+| Bash | 3.2+ |
+| For deploy skills | Vercel CLI + account |
+| For database skills | Supabase CLI + account |
+| For notifications | Slack webhook URL |
 
-Claude Code and Codex are optional but recommended for implementation engine skills.
+Claude Code and Codex are optional. Hermes handles the full workflow without them.
 
 ---
 
@@ -266,25 +300,26 @@ Claude Code and Codex are optional but recommended for implementation engine ski
 - Not a no-code tool
 - Not Claude Design (there is no Claude Design API)
 - Not a dashboard product
+- Not useful without Hermes installed first
 
 ---
 
 ## Roadmap
 
 **V1 — current**
-12 lifecycle skills, AGENTS.md conventions, Vercel + Supabase integration, bootstrap scripts, full docs, example starter app.
+13 skills, 3 workflows, AGENTS.md conventions, Vercel + Supabase integration, scripts, full docs, example app.
 
-**V2 — in progress**
-Cron-based health monitoring, incident creation skill, post-deploy automated tests, staging → production promotion.
+**V2 — planned**
+Cron-based health monitoring (Hermes watches production on a schedule), incident creation skill, post-deploy automated tests, staging → production promotion workflow.
 
 **V3 — planned**
-Multi-service orchestration, rollback skill, more example apps (SaaS, API-only, edge functions).
+Multi-service orchestration, rollback skill, more example apps.
 
 ---
 
 ## Contributing
 
-Read [docs/architecture.md](docs/architecture.md) before proposing features — it explains what belongs here versus in Hermes core. Open issues for wrong or missing skills, bugs in scripts, or proposed improvements to Hermes itself.
+Read [docs/architecture.md](docs/architecture.md) before proposing features — it explains what belongs here versus in Hermes core. Open issues for wrong or missing skills, bugs in scripts, or Hermes improvement proposals.
 
 ---
 
