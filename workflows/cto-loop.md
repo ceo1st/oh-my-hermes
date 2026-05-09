@@ -68,26 +68,47 @@ Backlog       In Progress    Review         Awaiting Approval    Done
 
 ## Monitoring (Ops Agent, always on)
 
-- Every 15 minutes: health check on production
-- On failure: retry once, then alert CTO → founder
-- Every morning at 9am: CTO sends `cto-status-report` to founder
+Cron jobs Hermes sets up automatically:
+
+```bash
+hermes cron add "*/15 * * * *" "Health check [production-url]/api/health"
+hermes cron add "0 9 * * *"    "Send cto-status-report to founder"
+hermes cron add "0 * * * *"    "Run auto-issue-triage for [owner/repo]"
+```
+
+## Multi-agent execution
+
+Hermes supports spawning up to 3 parallel sub-agents. In the CTO loop:
+- The **CTO Agent** (main session) orchestrates and monitors
+- It spawns **PM**, **Dev**, **QA**, **Ops** as sub-agents when assigning work
+- Sub-agents share memory and kanban with the main session
+- Max 3 parallel tasks at once (Hermes default)
 
 ## Setup
 
 Tell Hermes once:
 
 ```
-Set up the CTO loop.
-GitHub repo: [owner/repo]
-Approval platform: [Telegram / Slack / Discord / WhatsApp]
+Set up the CTO loop for [owner/repo]. 
+Send approvals to me on [Telegram / Slack / Discord / WhatsApp].
 ```
 
-Hermes will ask for any missing config, set up crons, and confirm.
+What Hermes does:
+1. Saves `github-repo` and `approval-platform` to memory
+2. Runs `hermes cron add` for triage, health check, and morning report
+3. Confirms setup and shows the live kanban board
 
-## Customization commands (tell Hermes anytime)
+## Live board
+
+```bash
+hermes kanban watch    # live dashboard — see all tasks in real time
+hermes kanban list     # snapshot of current tasks
+```
+
+## Customization (tell Hermes anytime)
 
 ```
-pause the loop until Monday
+pause the CTO loop until Monday
 only work on bugs this week
 skip issue #42, it's blocked on design
 make triage run every 30 minutes

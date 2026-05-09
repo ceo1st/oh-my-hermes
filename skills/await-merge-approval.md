@@ -3,11 +3,15 @@ name: await-merge-approval
 description: Use when a PR is ready and the founder needs to approve or reject before Hermes merges to production
 version: 1.0.0
 tags: [github, pr, approval, autonomous, human-in-loop]
+metadata:
+  hermes:
+    tags: [approval, github, pr, human-in-loop]
+    requires_toolsets: [terminal]
 ---
 
 ## Overview
 
-Sends the PR summary to the founder via their configured messaging platform, then blocks until they reply. On YES: merges and deploys. On NO: notes feedback and closes the loop. The founder never needs to open GitHub.
+Sends the PR summary to the founder via the Hermes Gateway (Telegram, Slack, Discord, WhatsApp — whichever is configured), then waits for their reply. Hermes Gateway is fully bidirectional — it sends AND listens for incoming messages. On YES: merges and deploys. On NO: notes feedback and closes the loop. The founder never needs to open GitHub.
 
 ## When to Use
 

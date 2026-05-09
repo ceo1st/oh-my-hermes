@@ -20,7 +20,8 @@ Reads the full Hermes kanban and production health, then sends the founder a cle
 
 1. **Read kanban state:**
    ```bash
-   hermes task list --all
+   hermes kanban list
+   hermes kanban stats
    ```
 
 2. **Read recent deployment log:**
