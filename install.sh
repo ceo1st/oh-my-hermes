@@ -4,6 +4,7 @@ set -e
 HERMES_DIR="$HOME/.hermes"
 SKILLS_DIR="$HERMES_DIR/skills"
 WORKFLOWS_DIR="$HERMES_DIR/workflows"
+AGENTS_DIR="$HERMES_DIR/agents"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "Oh My Hermes — installer"
@@ -20,6 +21,7 @@ fi
 
 mkdir -p "$SKILLS_DIR"
 mkdir -p "$WORKFLOWS_DIR"
+mkdir -p "$AGENTS_DIR"
 
 # Install skills
 SKILLS_INSTALLED=0
@@ -41,14 +43,25 @@ if [ -d "$SCRIPT_DIR/workflows" ]; then
   done
 fi
 
+# Install agents
+AGENTS_INSTALLED=0
+if [ -d "$SCRIPT_DIR/agents" ]; then
+  for agent in "$SCRIPT_DIR/agents"/*.md; do
+    [ -f "$agent" ] || continue
+    cp "$agent" "$AGENTS_DIR/"
+    AGENTS_INSTALLED=$((AGENTS_INSTALLED + 1))
+  done
+fi
+
 echo ""
 echo "[OK] Skills installed:    $SKILLS_INSTALLED → $SKILLS_DIR"
 echo "[OK] Workflows installed: $WORKFLOWS_INSTALLED → $WORKFLOWS_DIR"
+echo "[OK] Agents installed:    $AGENTS_INSTALLED → $AGENTS_DIR"
 echo ""
 echo "Next steps:"
 echo "  1. cd into your project directory"
 echo "  2. bash $SCRIPT_DIR/scripts/bootstrap.sh"
 echo "  3. Fill in AGENTS.md and .env.example"
-echo "  4. Tell Hermes: 'start a new app'"
+echo "  4. Tell Hermes: 'set up the CTO loop for [owner/repo]'"
 echo ""
 echo "Verify: bash $SCRIPT_DIR/scripts/verify.sh"

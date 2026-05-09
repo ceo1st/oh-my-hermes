@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.3.0 — 2026-05-09
+
+### Added — Multi-agent architecture with Hermes kanban
+
+**Agents** (`agents/` → installed to `~/.hermes/agents/`)
+- `cto.md` — CTO Agent: orchestrates all agents, monitors kanban, reports to founder
+- `pm.md` — PM Agent: triages issues, writes tickets, prioritizes backlog
+- `dev.md` — Dev Agent: implements tickets, chooses engine, creates PRs
+- `qa.md` — QA Agent: reviews PRs, runs health checks, writes founder summaries
+- `ops.md` — Ops Agent: deploys, monitors production every 15min, handles incidents
+
+**Skills**
+- `kanban-task` — creates/updates Hermes kanban cards at every stage; used by all agents
+- `cto-status-report` — reads full kanban + health log, sends plain-English morning report
+
+**Workflows**
+- `cto-loop` (v2) — rewritten with full multi-agent architecture and kanban column flow
+
+**install.sh**
+- Now installs `agents/` to `~/.hermes/agents/` alongside skills and workflows
+
+---
+
 ## 1.2.0 — 2026-05-09
 
 ### Added — Autonomous CTO loop

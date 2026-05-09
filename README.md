@@ -3,7 +3,8 @@
 [![Version](https://img.shields.io/badge/version-1.0.0-4ade80?style=flat-square)](https://github.com/salomondiei08/oh-my-hermes/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![Hermes](https://img.shields.io/badge/Hermes-v0.9%2B-orange?style=flat-square)](https://hermes-agent.nousresearch.com)
-[![Skills](https://img.shields.io/badge/skills-18-brightgreen?style=flat-square)](#skills-included)
+[![Skills](https://img.shields.io/badge/skills-20-brightgreen?style=flat-square)](#skills-included)
+[![Agents](https://img.shields.io/badge/agents-5-blue?style=flat-square)](#agents)
 [![Stack](https://img.shields.io/badge/stack-Markdown%20%2B%20Bash-zinc?style=flat-square)](#)
 [![Deploy](https://img.shields.io/badge/deploy-Vercel-black?style=flat-square)](https://vercel.com)
 [![DB](https://img.shields.io/badge/db-Supabase-3ecf8e?style=flat-square)](https://supabase.com)
@@ -47,7 +48,8 @@ Hermes Agent has persistent memory, autonomous skill generation, 19+ messaging p
 
 Oh My Hermes fills that gap with:
 
-- **18 skills** — covering the full app lifecycle, GitHub ops, and autonomous CTO loop
+- **20 skills** — covering the full app lifecycle, GitHub ops, and autonomous CTO loop
+- **5 specialized agents** — CTO, PM, Dev, QA, Ops — each with defined responsibilities and kanban ownership
 - **Hermes-native framing** — designed for Hermes as the primary operator, not as a routing layer requiring human intervention
 - **VPS-ready** — works with Hermes running on a $5/month server or your local machine
 - **Conventions** — AGENTS.md templates and project structure standards
@@ -186,6 +188,22 @@ bash /tmp/oh-my-hermes/scripts/bootstrap.sh
 | `auto-issue-triage` | Cron-triggered: scores open issues, picks top priority, routes to implementation |
 | `review-github-pr` | Self-reviews PR diff, runs build and health check, writes plain-English founder summary |
 | `await-merge-approval` | Sends PR summary to founder via chat, blocks until YES/NO reply, merges or iterates |
+| `kanban-task` | Creates and updates Hermes kanban cards — used by every agent at every stage |
+| `cto-status-report` | Reads full kanban + health log, sends plain-English morning report to founder |
+
+---
+
+## Agents
+
+| Agent | Role | Kanban ownership |
+|---|---|---|
+| **CTO** | Orchestrates all agents, monitors kanban, escalates, reports to founder | Reads all columns |
+| **PM** | Triages GitHub issues, writes tickets, prioritizes backlog | Backlog |
+| **Dev** | Implements tickets, picks the right engine, creates PRs | In Progress |
+| **QA** | Reviews PRs, runs health checks, writes founder summary | Review |
+| **Ops** | Deploys, monitors production, handles incidents, sends notifications | Done + monitoring |
+
+Agent definitions live in `agents/` and are installed to `~/.hermes/agents/` alongside skills.
 
 ---
 
