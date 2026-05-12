@@ -7,7 +7,6 @@ metadata:
   hermes:
     tags: [kanban, tracking, agents]
     requires_toolsets: [terminal]
-    min_version: "0.13"
 ---
 
 ## Overview
