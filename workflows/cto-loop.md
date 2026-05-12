@@ -39,6 +39,11 @@ DEV AGENT: picks top backlog ticket
   └─ create-github-pr
         │ kanban-task (review)
         ▼
+SECURITY AGENT: security-review
+  ├─ Critical/High → kanban-task (blocked) → alert founder → Dev fixes
+  └─ Clean/Medium  → hand to QA Agent
+        │
+        ▼
 QA AGENT: review-github-pr
   ├─ FAIL → kanban-task (blocked) → feedback to Dev → Dev fixes
   └─ PASS → founder summary

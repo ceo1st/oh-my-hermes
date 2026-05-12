@@ -57,7 +57,7 @@ fi
 # ── 2. Create Hermes profiles ─────────────────────
 step "2. Creating Hermes profiles (cto, pm, dev, qa, ops)"
 
-for profile in cto pm dev qa ops; do
+for profile in cto pm dev qa ops security; do
   if hermes profile list 2>/dev/null | grep -qw "$profile"; then
     ok "profile '$profile' already exists"
   else
@@ -73,7 +73,7 @@ done
 # ── 3. Inject agent roles into profiles ───────────
 step "3. Injecting agent role definitions into profiles"
 
-for agent in cto pm dev qa ops; do
+for agent in cto pm dev qa ops security; do
   PROFILE_DIR="$HERMES_DIR/profiles/$agent"
   AGENT_FILE="$AGENTS_DIR/$agent.md"
 
@@ -220,6 +220,18 @@ else
   warn "Could not add status report cron. Add manually:"
   echo "         hermes cron add '0 9 * * *' 'Send cto-status-report to founder'"
   CRON_FAIL=1
+fi
+
+if [ -n "$GITHUB_REPO" ]; then
+  if hermes cron add "0 9 * * 1" "Run security-review supply chain assessment for $GITHUB_REPO" 2>/dev/null; then
+    ok "cron: weekly supply chain security assessment (Monday 9am)"
+  else
+    warn "Could not add supply chain cron. Add manually:"
+    echo "         hermes cron add '0 9 * * 1' 'Run security-review supply chain assessment for $GITHUB_REPO'"
+    CRON_FAIL=1
+  fi
+else
+  warn "GITHUB_REPO not set — skipping weekly security assessment cron"
 fi
 
 # ── Summary ───────────────────────────────────────

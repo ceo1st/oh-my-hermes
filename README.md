@@ -3,8 +3,8 @@
 [![Version](https://img.shields.io/badge/version-1.0.0-4ade80?style=flat-square)](https://github.com/salomondiei08/oh-my-hermes/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![Hermes](https://img.shields.io/badge/Hermes-v0.13%2B-orange?style=flat-square)](https://hermes-agent.nousresearch.com)
-[![Skills](https://img.shields.io/badge/skills-21-brightgreen?style=flat-square)](#skills-included)
-[![Agents](https://img.shields.io/badge/agents-5-blue?style=flat-square)](#agents)
+[![Skills](https://img.shields.io/badge/skills-22-brightgreen?style=flat-square)](#skills-included)
+[![Agents](https://img.shields.io/badge/agents-6-blue?style=flat-square)](#agents)
 [![Stack](https://img.shields.io/badge/stack-Markdown%20%2B%20Bash-zinc?style=flat-square)](#)
 [![Deploy](https://img.shields.io/badge/deploy-Vercel-black?style=flat-square)](https://vercel.com)
 [![DB](https://img.shields.io/badge/db-Supabase-3ecf8e?style=flat-square)](https://supabase.com)
@@ -72,7 +72,7 @@ YOU  ──  Telegram / Slack / Discord / terminal
 │                    │  Backlog → In Progress → Review → Done   │  │
 │                    └─────────────────────────────────────────┘  │
 │                                                                 │
-│  Persistent memory · 21 skills · 5 workflows · cron jobs        │
+│  Persistent memory · 22 skills · 5 workflows · cron jobs        │
 └──────┬─────────────────────────────────────────────────────────┘
        │
        │  invokes when needed
@@ -113,7 +113,7 @@ Hermes Agent has persistent memory, autonomous skill generation, 19+ messaging p
 
 Oh My Hermes fills that gap with:
 
-- **21 skills** — covering the full app lifecycle, GitHub ops, and autonomous CTO loop
+- **22 skills** — covering the full app lifecycle, GitHub ops, and autonomous CTO loop
 - **5 specialized agents** — CTO, PM, Dev, QA, Ops — each with defined responsibilities and kanban ownership
 - **Hermes-native framing** — designed for Hermes as the primary operator, not as a routing layer requiring human intervention
 - **VPS-ready** — works with Hermes running on a $5/month server or your local machine
@@ -180,7 +180,7 @@ You do not need everything on day one. Here is exactly what you get at each stag
 | Step | What to do | What you unlock |
 |---|---|---|
 | 1 | Install Hermes Agent | The runtime — nothing else works without this |
-| 2 | `install.sh` | 21 skills + 5 workflows loaded into Hermes |
+| 2 | `install.sh` | 22 skills + 5 workflows loaded into Hermes |
 | 3 | `scripts/bootstrap.sh` in your project | `AGENTS.md`, `.env.example`, `/api/health` endpoint |
 | 4 | Fill in `AGENTS.md` and `.env.local` | Hermes knows your stack, credentials work |
 | 5 | `export GITHUB_TOKEN` + `setup-cto.sh` | Agents active, kanban live, crons scheduled — full autonomous loop |
@@ -202,7 +202,7 @@ You do not need everything on day one. Here is exactly what you get at each stag
 curl -fsSL https://raw.githubusercontent.com/salomondiei08/oh-my-hermes/main/install.sh | bash
 ```
 
-Installs 21 skills and 5 workflows to `~/.hermes/skills/` and `~/.hermes/workflows/`.
+Installs 22 skills and 5 workflows to `~/.hermes/skills/` and `~/.hermes/workflows/`.
 
 ### Bootstrap a new project
 
@@ -297,6 +297,7 @@ bash /path/to/oh-my-hermes/scripts/uninstall.sh
 | `kanban-task` | Creates and updates Hermes kanban cards — used by every agent at every stage |
 | `cto-status-report` | Reads full kanban + health log, sends plain-English morning report to founder |
 | `backup-hermes-data` | Tarballs `~/.hermes/` to S3, Dropbox, or local — run on cron before any upgrade |
+| `security-review` | PR secret scan + OWASP check + CVE audit + weekly supply chain assessment |
 
 ---
 
@@ -309,6 +310,7 @@ bash /path/to/oh-my-hermes/scripts/uninstall.sh
 | **Dev** | Implements tickets, picks the right engine, creates PRs | In Progress |
 | **QA** | Reviews PRs, runs health checks, writes founder summary | Review |
 | **Ops** | Deploys, monitors production, handles incidents, sends notifications | Done + monitoring |
+| **Security** | Reviews every PR for secrets/OWASP issues, CVE checks, weekly supply chain scan | Blocks merge on critical findings |
 
 Role definitions live in `agents/` and are installed to `~/.hermes/agents/`. Running `scripts/setup-cto.sh` creates the actual Hermes profiles (`cto`, `pm`, `dev`, `qa`, `ops`) and injects each role definition — that is what makes the agents active, not the role files alone.
 
@@ -486,7 +488,7 @@ Claude Code and Codex are optional. Hermes handles the full workflow without the
 ## Roadmap
 
 **V1 — current**
-21 skills, 5 agent profiles, 5 workflows, AGENTS.md conventions, one-command CTO setup, Vercel + Supabase + GitHub ops, scripts, full docs, example app.
+22 skills, 5 agent profiles, 5 workflows, AGENTS.md conventions, one-command CTO setup, Vercel + Supabase + GitHub ops, scripts, full docs, example app.
 
 **V2 — planned**
 Cron-based health monitoring (Hermes watches production on a schedule), incident creation skill, post-deploy automated tests, staging → production promotion workflow.

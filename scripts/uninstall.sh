@@ -21,10 +21,11 @@ SKILLS=(
   setup-monitoring health-check send-notification post-deploy-followup
   manage-github-issues create-github-pr auto-issue-triage review-github-pr
   await-merge-approval kanban-task cto-status-report backup-hermes-data
+  security-review
 )
 
 WORKFLOWS=(idea-to-deploy design-to-code deploy-and-monitor github-ops cto-loop)
-AGENTS=(cto pm dev qa ops)
+AGENTS=(cto pm dev qa ops security)
 
 echo "Will remove:"
 echo "  Skills:    ${#SKILLS[@]}"
@@ -57,7 +58,7 @@ for agent in "${AGENTS[@]}"; do
   if [ -f "$f" ]; then rm "$f"; echo "  removed: agents/$agent.md"; REMOVED=$((REMOVED+1)); fi
 done
 
-for profile in cto pm dev qa ops; do
+for profile in cto pm dev qa ops security; do
   d="$HERMES_DIR/profiles/$profile"
   if [ -d "$d" ]; then rm -rf "$d"; echo "  removed: profiles/$profile/"; REMOVED=$((REMOVED+1)); fi
 done
