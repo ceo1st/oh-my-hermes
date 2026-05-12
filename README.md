@@ -16,6 +16,54 @@ Like Oh My Zsh is to Zsh. You install it once and Hermes becomes genuinely usefu
 
 ---
 
+## Use with an AI agent
+
+If you work with Claude, Cursor, Copilot, or any coding assistant, paste this directly into the chat:
+
+**To install Oh My Hermes on a project:**
+
+```
+Install Oh My Hermes on this project.
+
+1. Clone the repo: git clone https://github.com/salomondiei08/oh-my-hermes /tmp/oh-my-hermes
+2. Run the installer: bash /tmp/oh-my-hermes/install.sh
+3. Bootstrap this project: bash /tmp/oh-my-hermes/scripts/bootstrap.sh
+4. Verify everything installed: bash /tmp/oh-my-hermes/scripts/verify.sh
+
+Then tell me what's missing and what I need to fill in.
+```
+
+**To set up the full autonomous CTO loop:**
+
+```
+Set up the Oh My Hermes CTO loop for this project.
+
+Follow the instructions in: https://raw.githubusercontent.com/salomondiei08/oh-my-hermes/main/INSTALL_FOR_AGENTS.md
+
+I will provide the following when you ask:
+- My GitHub repo (owner/repo)
+- A GitHub fine-grained token (I'll create one if you explain how)
+- My production URL (if deployed)
+
+Walk me through each step one at a time.
+```
+
+**To start a new app from scratch:**
+
+```
+Use Oh My Hermes to start a new app.
+
+Oh My Hermes is installed at ~/.hermes/skills/. Load the following skills in order:
+1. clarify-requirements — ask me the 7 questions and save my answers
+2. product-brief — generate the brief from my answers
+3. choose-engine — decide how to implement it
+4. implement — build it using the right engine
+
+Start with clarify-requirements now.
+```
+
+---
+
 ## The core idea
 
 Hermes is the operator. It talks to you. It remembers. It builds. It deploys. It monitors. It notifies.
