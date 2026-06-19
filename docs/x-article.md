@@ -2,170 +2,307 @@ Hermes as a CTO: from prompt to product
 
 [header image — see diagram prompt at bottom]
 
----
+Most founders do not need an AI that only reviews pull requests.
 
-Most founders think the bottleneck is writing code.
+They need an AI that helps build the product.
 
-It is not. The bottleneck is everything around the code. Reading the issue. Writing the ticket. Assigning the work. Reviewing the PR. Checking the build. Deploying. Telling someone it shipped. Starting over.
+The hard part is not one PR. It is the whole path from a rough idea to a real thing people can use.
 
-That coordination layer is where your week disappears.
+The idea has to become a brief.
 
-What if you had a CTO who handled all of it, reported to you every morning, and only interrupted you when a real decision was needed?
+The brief has to become tasks.
 
-That is what Hermes becomes when you set it up right. This article shows you exactly how.
+The tasks have to become code.
+
+The code has to be checked, shipped, monitored, and improved.
+
+That is the workflow Oh My Hermes is trying to make simple.
+
+Not just "review my PR."
+
+"Help me build the product."
 
 
 What is Hermes?
 
-Hermes is an open-source autonomous agent built by Nous Research. It is not a coding assistant you open in an IDE. It is not a chatbot you ask questions. It is closer to a permanent team member that lives on a server, never sleeps, remembers everything you have worked on together, and reaches you wherever you are — Telegram, Slack, Discord, WhatsApp, your terminal.
+Hermes is an open-source autonomous agent built by Nous Research.
+
+It is not a coding assistant trapped inside your IDE. It is not just a chatbot. It is closer to a long-running teammate that lives on a server, remembers your project, and talks to you through the places you already use: Telegram, Slack, Discord, WhatsApp, or the terminal.
 
 What separates Hermes from everything else is what it has built in out of the box.
 
-Persistent memory across sessions. It learns your project over time and never forgets how it solved something last week.
+Persistent memory. It can remember what your product does, what stack you use, what decisions were made last week, and what not to repeat.
 
-A native skill system. You give it a markdown file describing a workflow — deploy to Vercel, triage a GitHub issue, run a security scan — and Hermes knows how to execute it from that point on. No code. No plugins. Text files.
+A native skill system. You give it a plain text workflow like "clarify requirements", "create a product brief", "choose the right coding engine", or "deploy to Vercel", and Hermes can follow it later.
 
-Native cron scheduling. Native kanban. Native sub-agent spawning. You can run up to three parallel agents in isolated sessions, all sharing the same memory and kanban board.
+Native cron. Native kanban. Native profiles. Native delegation.
 
-None of this requires setup beyond installing Hermes. It is all there. The question is how to use it well.
+That means Hermes already has the primitives for a product-building loop. Oh My Hermes is the opinionated playbook that connects them.
 
 
 The idea behind Oh My Hermes
 
-Oh My Hermes is a skill pack — 23 skills, 6 agent role definitions, 5 workflows — that wires all of Hermes' native capabilities into one coherent CTO system.
+Oh My Hermes is a skill pack: 23 skills, 6 agent role definitions, and 5 workflows.
 
-Like Oh My Zsh does for your terminal: the power was already there. The pack makes it immediately useful.
+The goal is simple:
 
-The setup is one command and one conversation with your bot.
+Turn Hermes into a practical CTO layer for building apps.
 
-curl -fsSL https://raw.githubusercontent.com/salomondiei08/oh-my-hermes/main/install.sh | bash
+Not a magic founder replacement.
 
-Then you message your bot: set up the CTO loop
+Not a vague "AI automation" demo.
+
+A real operating loop for early product work:
+
+Clarify the idea.
+
+Write the brief.
+
+Break it into tasks.
+
+Choose the right builder.
+
+Implement.
+
+Review.
+
+Ship.
+
+Monitor.
+
+Report back.
+
+Like Oh My Zsh, the power was already there. The pack makes it easier to use without designing the whole workflow yourself.
+
+The setup is not a command you have to paste into a terminal. It is a message you give to the AI agent already helping you with your project.
+
+You tell Claude, Cursor, Codex, or any assistant:
+
+Install Oh My Hermes on this project. Follow the agent installation guide at github.com/salomondiei08/oh-my-hermes/blob/main/INSTALL_FOR_AGENTS.md. Verify the install, then help me set up the CTO loop.
+
+The agent handles the install and verification. Then you message your Hermes bot: set up the CTO loop
 
 It asks for your GitHub repository, walks you through creating a fine-grained token with exact steps through the GitHub UI, asks for your production URL and what time you want your daily report, and configures everything. You never need to open the terminal again.
 
 
-From prompt to product — the full loop
+From idea to product
 
 [DIAGRAM — see prompt at bottom of article]
 
-Here is what happens from the moment someone opens a GitHub issue to the moment the fix is live in production.
+Here is the part I want to emphasize.
 
-Step 1 — The PM Agent reads the issue.
+Oh My Hermes is not mainly about PR review.
 
-It scores it by urgency and impact: bug labels, number of user comments, age, priority tags. It writes a proper kanban ticket with a clear title, the business reason in one sentence, and two to four testable acceptance criteria. If the issue is too vague, it does not guess — it asks you for clarification.
+PR review is just one checkpoint.
 
-Step 2 — The Dev Agent picks up the ticket.
+The real value is that Hermes can help move from a messy product request to a shipped feature.
 
-It looks at what needs to be done and chooses the right tool. Config and ops work goes to Hermes itself. A quick bug in one or two files goes to Codex. A multi-file feature with unclear structure goes to Claude Code. It implements the fix, commits after every logical unit of work, and scans the diff before every commit to make sure no secrets or API keys are included.
+Example:
 
-Step 3 — The Security Agent reviews the PR.
+"Build a small dashboard for my SaaS so I can see active users, failed payments, and support tickets."
 
-Every single PR, before it reaches you. It scans the diff for hardcoded credentials, dangerous patterns like raw SQL concatenation or eval(), and OWASP issues. If package files changed, it runs an audit for CVEs. If something critical turns up, the PR is blocked and you get an immediate alert. Every Monday it also runs a supply chain check — publisher changes, typosquatting, new CVEs since last week.
+A normal AI assistant might jump straight into code.
 
-Step 4 — The QA Agent checks everything.
+Oh My Hermes tries to slow down in the right places.
 
-It verifies the build passes, runs a health check on the Vercel preview URL, and confirms the changes actually match the acceptance criteria on the ticket. Then it writes a summary in plain English — not a diff, not a list of files, but what the user will actually experience differently.
+First, it clarifies the product.
 
-Step 5 — You get one message.
+Who is the dashboard for?
 
-PR 12 — Fix login redirect for new users
+What decisions should it help you make?
 
-What changed: Users who hadn't verified their email were sent to a 404. They now see "Check your inbox."
+Where does the data come from?
 
-Build: passing  |  Preview: healthy at 180ms  |  No secrets found
-Preview: https://myapp-fix-login.vercel.app
+What is the smallest useful version?
 
-Reply YES to ship. Reply NO and tell me why.
+Then it writes a product brief.
 
-Step 6 — You reply YES.
+Then it creates implementation tasks.
 
-The Ops Agent merges, deploys to production, runs a three-layer health check — app endpoint, Supabase connection, Vercel logs — and sends you a confirmation with the live URL.
+Then it chooses who should build each part.
 
-The entire loop. From GitHub issue to live in production. Your total involvement: one word.
+For a small file fix, Codex might be enough.
+
+For a multi-page feature, Claude Code might be better.
+
+For deployment, monitoring, or repository operations, Hermes can handle the terminal work itself.
+
+That is the full point: you are not asking one model to do everything. You are giving Hermes a system for routing the work.
+
+
+The build loop
+
+Here is what happens when the system is working well.
+
+Step 1: The founder gives a rough idea or GitHub issue.
+
+Hermes does not treat the first sentence as the final spec. If the request is unclear, it asks. If it is clear enough, it turns the request into a structured brief.
+
+Step 2: The PM Agent turns it into buildable work.
+
+It writes the "what", the "why", and the acceptance criteria. Not vague criteria like "it works." Concrete checks like "the dashboard loads in under 3 seconds and shows active users, failed payments, and open tickets."
+
+Step 3: The Dev Agent builds.
+
+The Dev Agent owns implementation. It picks the right engine, passes the right context, commits in logical chunks, and opens a PR when the work is ready.
+
+This is where most of the value is. The system is not waiting for you to micromanage the next step. It is moving the build forward.
+
+Step 4: Security and QA protect the build.
+
+This is where PR review matters. Security checks for secrets, unsafe patterns, and obvious OWASP problems. QA checks the build, the preview, and whether the feature actually matches the acceptance criteria.
+
+They are not the main event. They are the guardrails.
+
+Step 5: You approve the product decision.
+
+You get a message in plain English:
+
+Dashboard feature is ready.
+
+What changed: You can now see active users, failed payments, and open support tickets from one admin page.
+
+Checks: build passing, preview healthy, no secrets found.
+
+Preview: https://your-app-preview.vercel.app
+
+Reply YES to ship. Reply NO and tell me what to change.
+
+Step 6: Ops ships and watches production.
+
+After approval, Ops deploys, runs health checks, logs the release, and keeps monitoring. If something breaks, it tells you what failed in plain language.
+
+The promise is not "AI wrote some code."
+
+The promise is "the product moved."
 
 
 The six agents and what they own
 
 [DIAGRAM — see prompt at bottom of article]
 
-CTO is the main Hermes session. It orchestrates everything, watches the kanban, delegates to the other five agents, and is the only one that talks to you. It sends you a morning report every day. It escalates to you only when a human decision is genuinely required. It does not write code.
+CTO is the main Hermes session. It keeps the product moving. It watches the kanban, delegates to the other five agents, and is the one that talks to you. Its job is not to write code. Its job is to make sure the right work happens in the right order.
 
-PM owns the backlog. Its job is to make sure the Dev Agent never has to guess at what a ticket means. Every card it creates has testable acceptance criteria. Ambiguous issues get a question back to you before anything starts.
+PM turns ideas into buildable tasks. It owns the backlog, asks clarification questions, scores issues, and writes tickets with acceptance criteria. It protects the Dev Agent from guessing.
 
-Dev owns In Progress. It picks the top ticket, chooses the right engine, builds the fix, and opens the PR. It never starts a second ticket while one is in progress. It never commits a secret.
+Dev builds the product. It owns in-progress work, chooses the right engine, implements the feature or fix, commits carefully, and opens the PR.
 
-Security sits between Dev and QA on every PR. It also runs every Monday independently to assess the supply chain. It does not write fixes — it sends specific feedback to Dev with instructions, then blocks the merge until the issue is resolved.
+Security protects the product. It checks PRs for secrets, unsafe code patterns, OWASP issues, and supply chain risk. It does not exist to slow everything down. It exists so you can ship without being reckless.
 
-QA is the last check before anything reaches you. It will not approve a PR without running the health check on the preview URL. If the build fails or the preview is unhealthy, it sends the card back to Dev with specific feedback. It never guesses.
+QA checks whether the thing actually works. It reviews the PR, runs the preview health check, compares the result to the acceptance criteria, and writes a plain-English summary for you.
 
-Ops runs 24 hours a day. Health check every 15 minutes. Vercel log scan every hour. When something breaks it retries once, identifies the failing layer, and alerts you in plain language. If the last deploy was under two hours ago, it offers a rollback. It always confirms with you before executing it.
+Ops ships and watches the product. It deploys, checks production, scans logs, reports incidents, and offers rollback when a recent deploy looks guilty.
+
+The point is not that each agent is complicated.
+
+The point is that each agent has a job.
+
+That is what makes the loop understandable.
 
 
 This is Hermes doing what it already does
 
 The thing worth understanding is that Oh My Hermes is not asking Hermes to do anything unusual.
 
-The kanban is native. Every hermes kanban create, hermes kanban claim, hermes kanban complete command in these skills exists in stock Hermes.
+The kanban is native. Hermes already has a board where tasks can move from idea to work to review to done.
 
-The scheduling is native. The hourly triage, the 15-minute health checks, the Monday security scan, the morning report — all of it is hermes cron add pointing at a skill prompt.
+The scheduling is native. Hourly triage, daily reports, health checks, and weekly security reviews are cron jobs pointing at skill prompts.
 
-The sub-agents are native. Hermes supports up to three parallel sub-sessions. The CTO spawns PM, Dev, Security, QA, and Ops as sub-agents. They share memory and kanban access without any custom plumbing.
+The profiles and delegation are native. Hermes can run different named roles with different instructions and shared project context.
 
-The memory is native. When the Dev Agent writes a PR description, it draws from the same memory the CTO has built over weeks. Context is always there.
+The memory is native. The product brief, architecture choices, deploy history, and decisions can stay available across sessions.
 
-Oh My Hermes provides the playbook. The 23 skill files tell Hermes exactly what steps to take in each situation. The agent role files define ownership. The workflow files wire the stages together.
+Oh My Hermes provides the playbook.
+
+The skills tell Hermes how to clarify, plan, build, review, deploy, monitor, and report.
+
+The agent files define who owns what.
+
+The workflows connect the stages.
 
 It is a thin layer of instructions on top of powerful infrastructure that already exists.
 
 
-What changes after one week
+What changes when you use it
 
-The first thing you notice is that the backlog is moving without you.
+The first thing you notice is that ideas stop sitting still.
 
-You check Telegram in the morning. There is a report: two things shipped yesterday, one is in review, one needs your input because the issue was ambiguous. You reply in one sentence. The loop continues.
+Instead of writing "we should build this someday", you can turn the idea into a brief, tasks, code, review, deploy, and monitoring.
 
-The second thing is that you stop second-guessing the small stuff. Did that commit include a secret? The Security Agent would have blocked it. Did the deploy break the database? The Ops Agent would have told you within 15 minutes. Is the preview healthy? The QA Agent ran the health check before you ever saw the PR.
+The second thing is that you stop being the project manager for every tiny step.
 
-The third thing is harder to describe. Your mental model of your own project changes. You stop being the person who manages the process. You become the person who makes the decisions that actually require a human — what to build next, what to prioritize, what direction to take when something is ambiguous.
+You still decide what matters.
 
-That is the real value. Not automation for its own sake. The fact that the coordination layer disappears and what is left is only the work that needed you all along.
+You still approve what ships.
+
+You still guide the product.
+
+But you are no longer the glue between every tool.
+
+The third thing is that the project develops a memory.
+
+Why did we choose Supabase?
+
+What did we ship last week?
+
+Which health check failed after the last deploy?
+
+What did the founder reject and why?
+
+The answers live in the operating loop, not in your head.
+
+That is the real value.
+
+Not automation for its own sake.
+
+Less coordination.
+
+More building.
 
 
 What it does not replace
 
 Product thinking. The PM Agent triages and scores, but if you are building the wrong thing, no system fixes that.
 
-Ambiguous problems. When a task involves genuinely uncertain technical choices, the Dev Agent escalates. That is by design.
+Taste. Hermes can help execute a product direction. It cannot decide what your users should love.
 
-Badly written issues. The system is as good as the GitHub issues you write. A clear issue — title, description, expected behavior — produces a clear ticket and a clean PR. "Fix the thing that broke" produces a question back to you.
+Ambiguous architecture. When a task involves genuinely uncertain technical choices, the Dev Agent should escalate. That is by design.
+
+Bad inputs. A clear request produces a clear build path. "Fix the thing that broke" produces a question back to you.
+
+Real engineering judgment. The system makes routine product work move faster. It should still ask when the decision is expensive, irreversible, or strategic.
 
 
 Get started
 
-One command to install. One message to configure. Full loop running by the end of the afternoon.
+If you use Claude, Cursor, Codex, Copilot, or any AI assistant, send it this message:
 
-curl -fsSL https://raw.githubusercontent.com/salomondiei08/oh-my-hermes/main/install.sh | bash
+Install Oh My Hermes on this project. Follow the agent installation guide at github.com/salomondiei08/oh-my-hermes/blob/main/INSTALL_FOR_AGENTS.md. Verify the install, then help me set up the CTO loop.
 
-Then message your bot: set up the CTO loop
+The agent handles the install and verification. You answer its questions. When it is ready, it tells you to message your Hermes bot.
+
+Then message your Hermes bot: set up the CTO loop
 
 Everything else happens in the conversation.
 
 Full repo, all skills, all agent definitions, MIT license:
 github.com/salomondiei08/oh-my-hermes
 
-The loop runs without you. Go build something worth shipping.
+The loop is not the product.
 
+The product is the product.
 
----
+Oh My Hermes is there to keep it moving.
+
+Go build something worth shipping.
 
 DIAGRAM PROMPTS (generate these and embed in the article)
 
 Header image:
-Wide dark banner. A glowing terminal on a minimal desk, screen showing "hermes cto — 3 shipped this week, 1 awaiting your approval". Cinematic lighting from the screen. No text overlay. Cyberpunk realism, Nous Research aesthetic.
+Wide dark banner. A founder sketching an app idea on a notebook beside a glowing terminal. On the terminal: "idea -> brief -> build -> ship". Cinematic green light, dark background, clean product-building mood, no text overlay needed.
 
-Loop diagram (place after "From prompt to product" heading):
-Clean horizontal flow diagram on dark background. Title: "From prompt to product". Nodes left to right: GitHub issue → PM Agent → Dev Agent → Security Agent → QA Agent → You (YES / NO) → Ops Agent → Live in production. Each node is a rounded rectangle. Dark navy background. White labels and connecting arrows. Below the Dev Agent node, a small fork showing: Hermes / Codex / Claude Code. Minimal, no decorative elements.
+Build loop diagram (place after "From idea to product" heading):
+Clean horizontal flow diagram on dark background. Title: "From idea to product". Nodes left to right: Rough idea -> Product brief -> Buildable tasks -> Dev Agent builds -> Security and QA guardrails -> Founder approval -> Production -> Monitoring. Each node is a rounded rectangle. Dark navy background. White labels and connecting arrows. Below Dev Agent, a small fork showing Hermes / Codex / Claude Code. Minimal, no decorative elements.
 
 Agents grid (place after "The six agents" heading):
-Six card grid on dark background. Title: "The 6 Oh My Hermes agents". Each card: agent name at top, one-line role in the middle, kanban column owned at the bottom in smaller text. Cards: CTO / Orchestrates and reports to you / All columns — PM / Triages and writes tickets / Backlog — Dev / Implements and opens PRs / In Progress — Security / Scans every PR and weekly supply chain / Between Dev and QA — QA / Reviews, health checks, writes summary / Review — Ops / Deploys and monitors 24/7 / Done and monitoring. Dark cards on darker background. White text. Clean grid.
+Six card grid on dark background. Title: "The 6 Oh My Hermes agents". Each card: agent name at top, one-line role in the middle, product-building ownership at the bottom in smaller text. Cards: CTO / Keeps product moving / Orchestration — PM / Turns ideas into tasks / Planning — Dev / Builds features and fixes / Implementation — Security / Protects the build / Risk checks — QA / Confirms it works / Product verification — Ops / Ships and monitors / Production. Dark cards on darker background. White text. Clean grid.
